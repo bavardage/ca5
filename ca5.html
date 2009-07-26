@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script type="text/javascript" src="jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="cell.js"></script>
+    <script type="text/javascript" src="ca5.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {        
+        test();
+      });
+    </script>
+    <style type="text/css">
+      * {
+        font-family: helvetica;
+      }
+      #debug {
+        border: 1px solid #aaa;
+        width: 400px;
+        height: 200px;
+        float: right;
+        padding: 0 5px 5px 5px;
+        background: #faf0ff;
+        overflow: auto;
+      }
+      #canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+   <h1>This is a canvas</h1>
+   <div id="debug">  
+     <h3>Debug</h3>
+   </div>
+   <a id="playpause" href="#">toggle</a> <a id="tick" href="#">tick</a><br/>
+   <canvas id="canvas" width="600" height="600">
+   </canvas>
+ </body>
+</html>
