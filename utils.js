@@ -25,3 +25,11 @@ Color.prototype = {
 	if(this.a > 255) this.a = 255;
     }
 };
+
+function inList(ele, list) {
+    here = false;
+    list.forEach(function(e) {
+	    if(e == ele) {here = true; return;}
+	});
+    return here;
+}

@@ -5,11 +5,11 @@
     <script type="text/javascript" src="grid.js"></script>
     <script type="text/javascript" src="cell.js"></script>
     <script type="text/javascript" src="coloredCells.js"></script>
+    <script type="text/javascript" src="golCells.js"></script>
     <script type="text/javascript" src="ca5.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {        
       setupInterface();
-
       $('#canvas').each(function() {
       g.drawToCanvas(this);
       });
@@ -41,6 +41,8 @@
    </div>
    <a id="test1" href="#">play/pause test 1</a>
    <a id="test2" href="#">play/pause test 2</a>
+   <a id="lifetest" href="#">play/pause life</a>
+   <a id="glidertest" href="#">play/pause glider</a>
    <a id="tick" href="#">tick</a><br/>
    <canvas id="canvas" width="600" height="600">
    </canvas>

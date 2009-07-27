@@ -25,6 +25,22 @@ function setupInterface() {
 		    g.togglePlay(this);
 		});
 	});
+
+    $('#lifetest').click(function() {
+	    if(!g.running) lifeTest();
+	    $('#canvas').each(function() {
+		    debug('toggling play');
+		    g.togglePlay(this);
+		});
+	});
+
+    $('#glidertest').click(function() {
+	    if(!g.running) gliderTest();
+	    $('#canvas').each(function() {
+		    debug('toggling play');
+		    g.togglePlay(this);
+		});
+	});
 }
 
 function colourTest1() {
@@ -89,4 +105,60 @@ function colourTest2() {
     for(var i = 0; i < g.width; i++)
 	for(var j = 0; j < g.height; j++)
 	    new ChamCell(g, i, j);
+}
+
+function lifeTest() {
+    debug('lifetest');
+    g.width = 30;
+    g.height = 30;
+    g.reset();
+
+    for(var i = 0; i < g.width; i++)
+	for(var j = 0; j < g.height; j++) {
+	    c = new GOLCell(g, i, j);
+	    if(Math.random() > 0.7) {
+		debug('making an alive cell');
+		c.nextAlive = true;
+		c.tock();
+	    }
+	}
+    $('#canvas').each(function() {
+	    g.drawToCanvas(this);
+	});
+}
+
+function gliderTest() {
+    debug('glidertest');
+    g.width = 20;
+    g.height = 20;
+    g.reset();
+
+    c = new GOLCell(g, 5, 5);
+    c.nextAlive = true;
+    c.tock();
+    c = new GOLCell(g, 5, 6);
+    c.nextAlive = true;
+    c.tock();
+    c = new GOLCell(g, 6, 6);
+    c.nextAlive = true;
+    c.tock();
+    c = new GOLCell(g, 4, 7);
+    c.nextAlive = true;
+    c.tock();
+    c = new GOLCell(g, 6, 7);
+    c.nextAlive = true;
+    c.tock();
+
+    for(var i = 0; i < g.width; i++)
+	for(var j = 0; j < g.width; j++)
+	    if(!g.cells[i][j].length)
+		new GOLCell(g, i, j);
+    debug('made cells');
+    
+
+
+    $('#canvas').each(function() {
+	    g.drawToCanvas(this);
+	});
+    
 }
