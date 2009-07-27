@@ -25,6 +25,11 @@ Grid.prototype = {
 	this.ticks = 0;
 	this.running = false;
     },
+    getCells : function(x, y) {
+	x = ((x % this.width) + this.width) % this.width;
+	y = ((y % this.height) + this.height) % this.height;
+	return this.cells[x][y];
+    },
     togglePlay : function(canvas) {
 	this.running = !this.running;
 	if(this.running)
@@ -45,7 +50,6 @@ Grid.prototype = {
     drawToCanvas : function(canvas) {
 	var ctx = canvas.getContext('2d');
 	//	ctx.globalAlpha = 0.5;
-
 	var cellWidth = canvas.width / this.width;
 	var cellHeight = canvas.height / this.height;
 	var len = this.allCells.length
@@ -76,18 +80,24 @@ Grid.prototype = {
     },
     neighbours : function(cell) {
 	var x = cell.x; var y = cell.y;
-	var xStart = x < 1 ? 0 : x - 1;
-	var yStart = y < 1 ? 0 : y - 1;
 	neighbours = [];
-	for(var i = xStart; i <= x + 1; i++) {
-	    for(var j = yStart; j <= y + 1; j++) {
-		//		if(i != x || j != y)
-		    this.cells[i % this.width][j % this.height].forEach(function(n) {
-			    if(cell != n)
-				neighbours.push(n);
-			});
-	    }
-	}
+
+	function addN(n) { neighbours.push(n); };
+
+	this.getCells(x-1,y-1).forEach(addN);
+	this.getCells(x,y-1).forEach(addN);
+	this.getCells(x+1,y-1).forEach(addN);
+	this.getCells(x-1,y).forEach(addN);
+	this.getCells(x,y).forEach(function(n) {
+		if(cell != n)
+		    neighbours.push(n);
+	    });
+	this.getCells(x+1,y).forEach(addN);
+
+	this.getCells(x-1,y+1).forEach(addN);
+	this.getCells(x,y+1).forEach(addN);
+	this.getCells(x+1,y+1).forEach(addN);
+
 	return neighbours;
     }
 }
