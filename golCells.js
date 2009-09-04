@@ -27,6 +27,11 @@ GOLCell.prototype = {
     tock : function() {
     	this.alive = this.nextAlive;
     	this.fillColor = this.alive ? this.aliveColor : this.deadColor;
+    },
+    mouseDown : function() {
+	this.alive = !this.alive;
+	this.fillColor = this.alive ? this.aliveColor : this.deadColor;
+	this.grid.drawToCanvas();
     }
     
 };
