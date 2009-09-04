@@ -1,5 +1,6 @@
 simulations = [];
-grid = new Grid(10, 10);
+grid = null;
+
 
 function Simulation(name, description, setup) {
     this.name = name;
@@ -9,6 +10,8 @@ function Simulation(name, description, setup) {
 }
 
 function setupInterface() {
+    canvas = document.getElementById('canvas');
+    grid = new Grid(canvas, 10, 10);
     simulations.forEach(function(sim) {
 	    $('#simulations').append("<li><a href='#' onClick='loadSim(\""
 				     + sim.name + "\")'>" 
@@ -17,9 +20,7 @@ function setupInterface() {
 	});
     $('#controls a').click(function() {
 	    debug('playpause');
-	    $('#canvas').each(function() {
-		    grid.togglePlay(this);
-		});
+	    grid.togglePlay();
 	});
 }
 
@@ -31,6 +32,7 @@ function loadSim(name) {
 	    debug('sim is: ' + simulations[i].description);
 	    simulations[i].setup();
 	}
+    grid.drawToCanvas();
 }
 
 new Simulation("Pretty Colours",

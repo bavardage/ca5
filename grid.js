@@ -1,12 +1,14 @@
 var TIMEOUT = 100;
 
 // Grid - a grid of cells
-function Grid(width, height) {
+function Grid(canvas, width, height) {
+    this.canvas = canvas;
     this.width = width;
     this.height = height;
     this.reset();
 };
 Grid.prototype = {
+    canvas : null,
     cells : null,
     running : false,
     add : function(cell) {
@@ -30,10 +32,11 @@ Grid.prototype = {
 	y = ((y % this.height) + this.height) % this.height;
 	return this.cells[x][y];
     },
-    togglePlay : function(canvas) {
+    togglePlay : function() {
+	
 	this.running = !this.running;
 	if(this.running)
-	    setTimeout(this.ticktock, TIMEOUT, canvas, this);
+	    setTimeout(this.ticktock, TIMEOUT, this);
     },
     prettyPrint : function() {
 	result = "";
@@ -47,7 +50,8 @@ Grid.prototype = {
 	}
 	return result;
     },
-    drawToCanvas : function(canvas) {
+    drawToCanvas : function() {
+	canvas = this.canvas;
 	var ctx = canvas.getContext('2d');
 	//	ctx.globalAlpha = 0.5;
 	var cellWidth = canvas.width / this.width;
@@ -69,13 +73,13 @@ Grid.prototype = {
 	    });
 	this.ticks += 1;
     },
-    ticktock : function(canvas, that) {
+    ticktock : function(that) {
 	if(!that) that = this;
 	that.tick();
-	that.drawToCanvas(canvas);
+	that.drawToCanvas();
 
 	if(that.running) {
-	    setTimeout(that.ticktock, TIMEOUT, canvas, that);
+	    setTimeout(that.ticktock, TIMEOUT, that);
 	}
     },
     neighbours : function(cell) {
