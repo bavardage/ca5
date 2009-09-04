@@ -99,6 +99,11 @@ Grid.prototype = {
 	this.getCells(x+1,y+1).forEach(addN);
 
 	return neighbours;
+    },
+    forEach : function(f) {
+	for(var i = 0; i < this.width; i++)
+	    for(var j = 0; j < this.height; j++)
+		f(i, j);
     }
 }
 // end Grid
