@@ -1,5 +1,6 @@
-function GOLCell(grid, x, y) {
+function GOLCell(grid, x, y, initialState) {
     Cell.call(this, grid, x, y);
+    this.alive = initialState;
 }
 GOLCell.prototype = {
     rules : {born : [3], stay : [2,3]},
