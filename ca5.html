@@ -10,10 +10,6 @@
     <script type="text/javascript">
       $(document).ready(function() {        
       setupInterface();
-      $('#canvas').each(function() {
-      g.drawToCanvas(this);
-      });
-
       });
     </script>
     <style type="text/css">
@@ -39,11 +35,12 @@
    <div id="debug">  
      <h3>Debug</h3>
    </div>
-   <a id="test1" href="#">play/pause test 1</a>
-   <a id="test2" href="#">play/pause test 2</a>
-   <a id="lifetest" href="#">play/pause life</a>
-   <a id="glidertest" href="#">play/pause glider</a>
-   <a id="tick" href="#">tick</a><br/>
+   <ul id="simulations" style="float:right">
+     
+   </ul>
+   <div id="controls">
+     <a href="#">play/pause</a>
+   </div>
    <canvas id="canvas" width="600" height="600">
    </canvas>
  </body>
