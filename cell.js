@@ -34,3 +34,14 @@ DrawableCell.prototype = {
 extend(Cell, DrawableCell);
 //end DrawableCell
 /////////////////////
+
+
+//EventListenerCell - deal with canvas events
+function EventListenerCell() {}
+EventListenerCell.prototype = {
+    mouseDown : function() {},
+    mouseOver : function() {}
+};
+extend(DrawableCell, EventListenerCell);
+//end DrawableCell
+/////////////////////

@@ -1,8 +1,17 @@
-var TIMEOUT = 100;
+var TIMEOUT = 50;
 
 // Grid - a grid of cells
 function Grid(canvas, width, height) {
     this.canvas = canvas;
+    grid = this;
+    this.canvas.addEventListener('mousedown',
+				 function(ev) {
+				     grid.mouseDown(ev);
+				 }, false);
+    this.canvas.addEventListener('mousemove', 
+				 function(ev) {
+				     grid.mouseMove(ev);
+				 }, false);
     this.width = width;
     this.height = height;
     this.reset();
@@ -108,7 +117,24 @@ Grid.prototype = {
 	for(var i = 0; i < this.width; i++)
 	    for(var j = 0; j < this.height; j++)
 		f(i, j);
-    }
+    },
+    eventToCells : function(ev) {
+	canvas = this.canvas;
+	addCoordsToEvent(ev);
+	ev._x -= $(canvas).offset().left;
+	ev._y -= $(canvas).offset().top;
+	var cellWidth = canvas.width / this.width; //TODO: make cellWidth a property
+	var cellHeight = canvas.height / this.height;
+	cell_x = Math.floor(ev._x / cellWidth);
+	cell_y = Math.floor(ev._y / cellHeight);
+	return this.getCells(cell_x, cell_y);
+    },
+    mouseDown : function(ev) {
+	this.eventToCells(ev).forEach(function(c) {c.mouseDown()});
+    },
+    mouseMove : function(ev) {
+	this.eventToCells(ev).forEach(function(c) {c.mouseOver()});
+    },
 }
 // end Grid
 /////////////////////

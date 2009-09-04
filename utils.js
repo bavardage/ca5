@@ -33,3 +33,13 @@ function inList(ele, list) {
 	});
     return here;
 }
+
+function addCoordsToEvent(ev) {
+    if (ev.layerX || ev.layerX == 0) { // Firefox
+	ev._x = ev.layerX;
+	ev._y = ev.layerY;
+    } else if (ev.offsetX || ev.offsetX == 0) { // Opera
+	ev._x = ev.offsetX;
+	ev._y = ev.offsetY;
+    }
+}
