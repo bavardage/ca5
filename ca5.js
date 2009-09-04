@@ -79,3 +79,13 @@ new Simulation("Glider",
 		       });
 });
 		
+new Simulation("Mouse Fade",
+	       "Wiggle your mouse over the grid!",
+	       function() {
+		   grid.width = 30; grid.height = 30;
+		   grid.reset();
+		   grid.forEach(function(x,y) {
+			   new MouseFadeCell(grid, x, y);
+		       });
+});
+		
