@@ -45,6 +45,7 @@ function loadSim(name) {
 	    simulations[i].setup();
 	}
     grid.drawToCanvas();
+    setupPlayButton();
 }
 
 new Simulation("Pretty Colours",
