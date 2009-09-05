@@ -98,7 +98,7 @@ new Simulation("Mouse Fade",
 		       });
 });
 
-new Simulation ("Colourful Mouse Fade",
+new Simulation("Colourful Mouse Fade",
 		"Wiggle your mouse over the grid!",
 		function() {
 		    grid.resize(30,30);
@@ -107,3 +107,33 @@ new Simulation ("Colourful Mouse Fade",
 			});
 });
 		
+
+new Simulation("Wolfram Rule 30",
+	       "Rule 30",
+	       function() {
+		   grid.resize(50,50);
+		   grid.forEach(function(x,y) {
+			   new WolframCell(grid, x, y, 30);
+		       });
+});
+new Simulation("Wolfram Rule 110",
+	       "Rule 110",
+	       function() {
+		   grid.resize(50,50);
+		   grid.forEach(function(x,y) {
+			   new WolframCell(grid, x, y, 110);
+		       });
+});
+new Simulation("Wolfram Rule xxx",
+	       "What's the rule? YOU decide!",
+	       function() {
+		   rule = parseInt(prompt("Enter rule number - 0 to 255"));
+		   if(rule < 0 || rule > 255) {
+		       alert("invalid rule, defaulting to 34");
+		       rule = 34;
+		   }
+		   grid.resize(50,50);
+		   grid.forEach(function(x,y) {
+			   new WolframCell(grid, x, y, rule);
+		       });
+});
