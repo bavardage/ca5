@@ -36,6 +36,11 @@ Grid.prototype = {
 	this.ticks = 0;
 	this.running = false;
     },
+    resize : function(w, h) {
+	this.width = w;
+	this.height = h;
+	this.reset();
+    },
     getCells : function(x, y) {
 	x = ((x % this.width) + this.width) % this.width;
 	y = ((y % this.height) + this.height) % this.height;
@@ -81,6 +86,7 @@ Grid.prototype = {
 		cell.tock();
 	    });
 	this.ticks += 1;
+	$('#generation').html("Generation " + this.ticks);
     },
     ticktock : function(that) {
 	if(!that) that = this;

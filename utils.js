@@ -3,7 +3,7 @@ function extend(child, supertype) {
 }
 
 function debug(text) {
-    $('#debug').append(text + '<br/>');
+    $('#debug div').append(text + '<br/>');
 }
 
 function Color(r, g, b, a) {
@@ -23,8 +23,31 @@ Color.prototype = {
 	if(this.g > 255) this.g = 255;
 	if(this.b > 255) this.b = 255;
 	if(this.a > 255) this.a = 255;
+    },
+    copy : function() {
+	return new Color(this.r, this.g, this.b, this.a);
     }
 };
+Color.aqua = function () { return new Color(0,255,255); };
+Color.black = function () { return new Color(0,0,0); };
+Color.blue = function () { return new Color(0,0,255); };
+Color.fuchsia = function () { return new Color(255,0,255); };
+Color.gray = function () { return new Color(128,128,128); };
+Color.green = function () { return new Color(0,128,0); };
+Color.lime = function () { return new Color(0, 255,0); };
+Color.maroon = function () { return new Color(128,0,0); };
+Color.navy = function () { return new Color(0,0,128); };
+Color.olive = function () { return new Color(128,128,0); };
+Color.purple = function () { return new Color(127,0,127); };
+Color.red = function () { return new Color(255,0,0); };
+Color.silver = function () { return new Color(192,192,192); };
+Color.teal = function () { return new Color(0,128,128); };
+Color.white = function () { return new Color(255,255,255); };
+Color.yellow = function () { return new Color(255,255,0); };
+Color.colors = [Color.aqua, Color.black, Color.blue, Color.fuchsia, Color.gray,
+		Color.green, Color.lime, Color.maroon, Color.navy, Color.olive,
+		Color.purple, Color.red, Color.silver, Color.teal, Color.white,
+		Color.yellow];
 
 function inList(ele, list) {
     here = false;
@@ -42,4 +65,9 @@ function addCoordsToEvent(ev) {
 	ev._x = ev.offsetX;
 	ev._y = ev.offsetY;
     }
+}
+
+function randomElement(list) {
+    var index = Math.floor(Math.random() * list.length);
+    return list[index];
 }

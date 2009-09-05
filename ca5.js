@@ -1,6 +1,9 @@
 simulations = [];
 grid = null;
 
+play_symbol = "\u25B6";
+pause_symbol = "\u275A\u275A";
+
 
 function Simulation(name, description, setup) {
     this.name = name;
@@ -9,18 +12,27 @@ function Simulation(name, description, setup) {
     simulations.push(this);
 }
 
+function setupPlayButton() {
+    if(grid.running)
+	$('#playpause').html(pause_symbol);
+    else
+	$('#playpause').html(play_symbol);
+}
+
 function setupInterface() {
     canvas = document.getElementById('canvas');
     grid = new Grid(canvas, 10, 10);
+    setupPlayButton();
     simulations.forEach(function(sim) {
-	    $('#simulations').append("<li><a href='#' onClick='loadSim(\""
-				     + sim.name + "\")'>" 
-				     + sim.name 
-				     + "</a></li>");
+	    $('#simulations ul').append("<li><a href='#' onClick='loadSim(\""
+					+ sim.name + "\")'>" 
+					+ sim.name 
+					+ "</a></li>");
 	});
-    $('#controls a').click(function() {
+    $('#playpause').click(function() {
 	    debug('playpause');
 	    grid.togglePlay();
+	    setupPlayButton();
 	});
 }
 
@@ -52,9 +64,7 @@ new Simulation("Pretty Colours",
 new Simulation("Life",
 	       "Conway's game of life",
 	       function() {
-		   grid.width = 30;
-		   grid.height = 30;
-		   grid.reset();
+		   grid.resize(40,40);
 		   grid.forEach(function(x,y) {
 			   var alive = false;
 			   if(Math.random() > 0.7)
@@ -66,8 +76,7 @@ new Simulation("Life",
 new Simulation("Glider",
 	       "Conway's game of life with a single glider",
 	       function() {
-		   grid.width = 20; grid.height = 20;
-		   grid.reset();
+		   grid.resize(20,20);
 		   new GOLCell(grid, 5, 5, true);
 		   new GOLCell(grid, 5, 6, true);
 		   new GOLCell(grid, 6, 6, true);
@@ -82,10 +91,18 @@ new Simulation("Glider",
 new Simulation("Mouse Fade",
 	       "Wiggle your mouse over the grid!",
 	       function() {
-		   grid.width = 30; grid.height = 30;
-		   grid.reset();
+		   grid.resize(15,15);
 		   grid.forEach(function(x,y) {
 			   new MouseFadeCell(grid, x, y);
 		       });
+});
+
+new Simulation ("Colourful Mouse Fade",
+		"Wiggle your mouse over the grid!",
+		function() {
+		    grid.resize(30,30);
+		    grid.forEach(function(x,y) {
+			    new ColourfulMouseFadeCell(grid, x, y);
+			});
 });
 		

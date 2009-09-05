@@ -13,36 +13,37 @@
       setupInterface();
       });
     </script>
-    <style type="text/css">
-      * {
-        font-family: helvetica;
-      }
-      #debug {
-        border: 1px solid #aaa;
-        width: 400px;
-        height: 200px;
-        float: right;
-        padding: 0 5px 5px 5px;
-        background: #faf0ff;
-        overflow: auto;
-      }
-      #canvas {
-        border: 1px solid black;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-   <h1>This is a canvas</h1>
-   <div id="debug">  
-     <h3>Debug</h3>
-   </div>
-   <ul id="simulations" style="float:right">
-     
-   </ul>
-   <div id="controls">
-     <a href="#">play/pause</a>
-   </div>
-   <canvas id="canvas" width="600" height="600">
-   </canvas>
- </body>
+    <div id="container">
+      <h1>Cellular</h1>
+      <div id="canvasContainer">
+	<div id="canvastop">
+	  <a id="playpause" href="#"></a>
+	  <span id="generation">
+	  </span>
+	</div>
+	<canvas id="canvas" width="600" height="600">
+	</canvas>
+      </div>
+
+      <div id="sidebar">
+
+	<div id="simulations">
+	  <h3>Simulations</h3>
+	  <ul>
+	  </ul>
+	</div>
+
+	<div id="debug">  
+	  <h3>Debug Output</h3>
+	  <div>
+	  </div>
+	</div>
+
+      </div>
+
+    </div>
+  </body>
 </html>
