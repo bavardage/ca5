@@ -133,6 +133,10 @@ Grid.prototype = {
 	var cellHeight = canvas.height / this.height;
 	cell_x = Math.floor(ev._x / cellWidth);
 	cell_y = Math.floor(ev._y / cellHeight);
+	if(cell_x >= this.width)
+	    cell_x = this.width - 1;
+	if(cell_y >= this.height)
+	    cell_y = this.height - 1;
 	return this.getCells(cell_x, cell_y);
     },
     mouseDown : function(ev) {
