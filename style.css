@@ -59,12 +59,14 @@ h3 {
 
 .tooltip {
     background-color: rgba(102,102,102,0.8)!important;
-    border: 1px solid #efefef!important;
     color: #efefef!important;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
 
+.largeTooltip {
+    width: 300px;
+}
 
 /* Colours used:
  #4489dd - light blue

@@ -28,11 +28,18 @@ function setupInterface() {
     canvas = document.getElementById('canvas');
     grid = new Grid(canvas, 10, 10);
     setupPlayControls();
+    var n = 0;
     simulations.forEach(function(sim) {
-	    $('#simulations ul').append("<li><a href='#' onClick='loadSim(\""
+	    $('#simulations ul').append("<li><a id='simulation" + n 
+					+ "' href='#' onClick='loadSim(\""
 					+ sim.name + "\")'>" 
 					+ sim.name 
 					+ "</a></li>");
+	    $('#simulation' + n).wTooltip({
+		    content : sim.description,
+			className: "tooltip largeTooltip"
+			});
+	    n += 1;
 	});
     $('#playpause').click(function() {
 	    debug('Playing/pausing simulation');
@@ -126,7 +133,7 @@ new Simulation("Mouse Fade",
 });
 
 new Simulation("Colourful Mouse Fade",
-		"Wiggle your mouse over the grid!",
+		"Wiggle your mouse over the grid and observe the pretty colours!",
 		function() {
 		    grid.resize(30,30);
 		    grid.forEach(function(x,y) {
@@ -136,7 +143,7 @@ new Simulation("Colourful Mouse Fade",
 		
 
 new Simulation("Wolfram Rule 30",
-	       "Rule 30",
+	       "The 1d automata specified by Wolfram Code 30",
 	       function() {
 		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
@@ -144,15 +151,15 @@ new Simulation("Wolfram Rule 30",
 		       });
 });
 new Simulation("Wolfram Rule 110",
-	       "Rule 110",
+	       "The 1d automata specified by Wolfram Code 110",
 	       function() {
 		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 110);
 		       });
 });
-new Simulation("Wolfram Rule 182 (Sierpinski)",
-	       "Rule 182",
+new Simulation("Wolfram Rule 182",
+	       "The 1d automata specified by Wolfram Code 182 - produces a Sierpinski triangle type pattern",
 	       function() {
 		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
