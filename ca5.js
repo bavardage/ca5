@@ -31,14 +31,14 @@ function setupInterface() {
     var n = 0;
     simulations.forEach(function(sim) {
 	    $('#simulations ul').append("<li><a id='simulation" + n 
-					+ "' href='#' onClick='loadSim(\""
-					+ sim.name + "\")'>" 
+					+ "' href='#'>" 
 					+ sim.name 
 					+ "</a></li>");
+	    $('#simulation' + n).click(function() {
+		    loadSim(sim.name);
+		});
 	    $('#simulation' + n).wTooltip({
-		    content : sim.description,
-			className: "tooltip largeTooltip"
-			});
+		    content : sim.description, className : "tooltip largeTooltip"});
 	    n += 1;
 	});
     $('#playpause').click(function() {

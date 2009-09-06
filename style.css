@@ -60,6 +60,7 @@ h3 {
 .tooltip {
     background-color: rgba(102,102,102,0.8)!important;
     color: #efefef!important;
+    border-width: 0px!important;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
