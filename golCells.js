@@ -1,8 +1,9 @@
-function GOLCell(grid, x, y, initialState) {
+function LifeLikeCell(grid, x, y, rules, initialState) {
     Cell.call(this, grid, x, y);
+    this.rules = rules;
     this.alive = initialState;
 }
-GOLCell.prototype = {
+LifeLikeCell.prototype = {
     rules : {born : [3], stay : [2,3]},
     alive : false,
     nextAlive : false,
@@ -29,10 +30,20 @@ GOLCell.prototype = {
     	this.fillColor = this.alive ? this.aliveColor : this.deadColor;
     },
     mouseDown : function() {
+	
 	this.alive = !this.alive;
 	this.fillColor = this.alive ? this.aliveColor : this.deadColor;
 	this.grid.drawToCanvas();
     }
-    
 };
-extend(GOLCell, Cell);
+extend(LifeLikeCell, Cell);
+
+function GOLCell(grid, x, y, initialState) {
+    LifeLikeCell.call(this, grid, x, y, {born : [3], stay: [2,3]}, initialState);
+}
+extend(GOLCell, LifeLikeCell);
+
+function MazeCell(grid, x, y, initialState) {
+    LifeLikeCell.call(this, grid, x, y, {born : [3], stay: [1,2,3,4,5]}, initialState);
+}
+extend(MazeCell, LifeLikeCell);

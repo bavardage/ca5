@@ -67,7 +67,7 @@ function setupInterface() {
 	    content : "View the current state of the canvas as an image, which you can save",
 	    className : "tooltip"
 		});
-
+    loadSim(simulations[0].name);
 }
 
 function loadSim(name) {
@@ -77,6 +77,7 @@ function loadSim(name) {
 	if(simulations[i].name == name) {
 	    debug('sim is: ' + simulations[i].description);
 	    simulations[i].setup();
+	    $('#simname').html(simulations[i].name);
 	}
     grid.drawToCanvas();
     setupPlayControls();
@@ -96,7 +97,7 @@ new Simulation("Pretty Colours",
 		       });
 });
 
-new Simulation("Life",
+new Simulation("Life (Random Start)",
 	       "Conway's game of life",
 	       function() {
 		   grid.resize(40,40);
@@ -107,21 +108,81 @@ new Simulation("Life",
 			   c = new GOLCell(grid, x, y, alive);
 		       });
 });
-
-new Simulation("Glider",
-	       "Conway's game of life with a single glider",
+new Simulation("Life (Blank)",
+	       "Conway's game of life",
 	       function() {
-		   grid.resize(20,20);
-		   new GOLCell(grid, 5, 5, true);
-		   new GOLCell(grid, 5, 6, true);
-		   new GOLCell(grid, 6, 6, true);
-		   new GOLCell(grid, 4, 7, true);
-		   new GOLCell(grid, 6, 7, true);
+		   grid.resize(40,40);
 		   grid.forEach(function(x,y) {
-			   if(!grid.cells[x][y].length)
-			       new GOLCell(grid, x, y);
+			   c = new GOLCell(grid, x, y, false);
 		       });
 });
+new Simulation("Maze World (Random Start)",
+	       "A life-like variant that produces maze patterns - rule 12345/3",
+	       function() {
+		   grid.resize(40,40);
+		   grid.forEach(function(x,y) {
+			   var alive = false;
+			   if(Math.random() > 0.9)
+			       alive = true;
+			   new MazeCell(grid, x, y, alive);
+		       });
+});
+new Simulation("Maze World (Blank)",
+	       "A life-like variant that produces maze patterns - rule 12345/3",
+	       function() {
+		   grid.resize(40,40);
+		   grid.forEach(function(x,y) {
+			   new LifeLikeCell(grid, x, y,
+					    {born: [3], stay: [1,2,3,4,5]},
+					    false);
+		       });
+});
+new Simulation("Generic Life-Like Rule ??? (Random Start)",
+	       "A life-like automata - what's the rule? You decide.<br/>",
+	       function() {
+		   grid.resize(40,40);
+		   born = [3];
+		   stay = [2,3];
+		   try {
+		       born = eval("[" 
+				   + prompt("Enter the conditions for cells being born as a comma seperated list ", "1,2,3")
+				   + "]");
+		       stay = eval("[" 
+				   + prompt("Enter the conditions for cells staying alive as a comma seperated list ", "1,2,3")
+				   + "]");
+		   } catch (e) {
+		       alert("Error with input, resorting to Conway's rules");
+		   }
+		   grid.forEach(function(x,y) {
+			   new LifeLikeCell(grid, x, y,
+					    {born: born, stay: stay},
+					    (Math.random() > 0.7));
+		       });
+});
+new Simulation("Generic Life-Like Rule ??? (Blank)",
+	       "A life-like automata - what's the rule? You decide.<br/>",
+	       function() {
+		   grid.resize(40,40);
+		   born = [3];
+		   stay = [2,3];
+		   try {
+		       born = eval("[" 
+				   + prompt("Enter the conditions for cells being born as a comma seperated list ", "1,2,3")
+				   + "]");
+		       stay = eval("[" 
+				   + prompt("Enter the conditions for cells staying alive as a comma seperated list ", "1,2,3")
+				   + "]");
+		   } catch (e) {
+		       alert("Error with input, resorting to Conway's rules");
+		   }
+		   grid.forEach(function(x,y) {
+			   new LifeLikeCell(grid, x, y,
+					    {born: born, stay: stay},
+					    false);
+		       });
+});
+						    
+				       
 		
 new Simulation("Mouse Fade",
 	       "Wiggle your mouse over the grid!",
@@ -145,7 +206,7 @@ new Simulation("Colourful Mouse Fade",
 new Simulation("Wolfram Rule 30",
 	       "The 1d automata specified by Wolfram Code 30",
 	       function() {
-		   grid.resize(100,100);
+		   grid.resize(50,50);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 30);
 		       });
@@ -153,7 +214,7 @@ new Simulation("Wolfram Rule 30",
 new Simulation("Wolfram Rule 110",
 	       "The 1d automata specified by Wolfram Code 110",
 	       function() {
-		   grid.resize(100,100);
+		   grid.resize(50,50);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 110);
 		       });
@@ -161,12 +222,12 @@ new Simulation("Wolfram Rule 110",
 new Simulation("Wolfram Rule 182",
 	       "The 1d automata specified by Wolfram Code 182 - produces a Sierpinski triangle type pattern",
 	       function() {
-		   grid.resize(100,100);
+		   grid.resize(50,50);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 182);
 		       });
 });	       
-new Simulation("Wolfram Rule xxx",
+new Simulation("Wolfram Rule ???",
 	       "What's the rule? YOU decide!",
 	       function() {
 		   rule = parseInt(prompt("Enter rule number - 0 to 255"));
@@ -174,7 +235,7 @@ new Simulation("Wolfram Rule xxx",
 		       alert("invalid rule, defaulting to 34");
 		       rule = 34;
 		   }
-		   grid.resize(100,100);
+		   grid.resize(50,50);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, rule);
 		       });
