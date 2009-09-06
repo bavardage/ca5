@@ -3,6 +3,7 @@ grid = null;
 
 play_symbol = "\u25B6";
 pause_symbol = "\u275A\u275A";
+skip_symbol = "\u21e5";
 
 
 function Simulation(name, description, setup) {
@@ -12,17 +13,21 @@ function Simulation(name, description, setup) {
     simulations.push(this);
 }
 
-function setupPlayButton() {
-    if(grid.running)
+function setupPlayControls() {
+    $('#skipforward').html(skip_symbol);
+    if(grid.running) {
 	$('#playpause').html(pause_symbol);
-    else
+	$('#skipforward').addClass('inactive');
+    } else {
 	$('#playpause').html(play_symbol);
+	$('#skipforward').removeClass('inactive');
+    }
 }
 
 function setupInterface() {
     canvas = document.getElementById('canvas');
     grid = new Grid(canvas, 10, 10);
-    setupPlayButton();
+    setupPlayControls();
     simulations.forEach(function(sim) {
 	    $('#simulations ul').append("<li><a href='#' onClick='loadSim(\""
 					+ sim.name + "\")'>" 
@@ -30,10 +35,32 @@ function setupInterface() {
 					+ "</a></li>");
 	});
     $('#playpause').click(function() {
-	    debug('playpause');
+	    debug('Playing/pausing simulation');
 	    grid.togglePlay();
-	    setupPlayButton();
+	    setupPlayControls();
 	});
+    $('#playpause').wTooltip({
+	    content : "Play or pause the simulation",
+		className : "tooltip",
+		});
+    $('#skipforward').click(function() {
+	    debug('Skipping forward one tick');
+	    grid.tick();
+	    grid.drawToCanvas();
+	});
+    $('#skipforward').wTooltip({
+	    content : "Advance the simulation by one tick",
+	    className : "tooltip"
+		});
+    $('#save').click(function(e) {
+	    e.preventDefault();
+	    window.location = document.getElementById('canvas').toDataURL("image/png");
+	});
+    $('#save').wTooltip({
+	    content : "View the current state of the canvas as an image, which you can save",
+	    className : "tooltip"
+		});
+
 }
 
 function loadSim(name) {
@@ -45,7 +72,7 @@ function loadSim(name) {
 	    simulations[i].setup();
 	}
     grid.drawToCanvas();
-    setupPlayButton();
+    setupPlayControls();
 }
 
 new Simulation("Pretty Colours",
@@ -111,7 +138,7 @@ new Simulation("Colourful Mouse Fade",
 new Simulation("Wolfram Rule 30",
 	       "Rule 30",
 	       function() {
-		   grid.resize(50,50);
+		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 30);
 		       });
@@ -119,11 +146,19 @@ new Simulation("Wolfram Rule 30",
 new Simulation("Wolfram Rule 110",
 	       "Rule 110",
 	       function() {
-		   grid.resize(50,50);
+		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 110);
 		       });
 });
+new Simulation("Wolfram Rule 182 (Sierpinski)",
+	       "Rule 182",
+	       function() {
+		   grid.resize(100,100);
+		   grid.forEach(function(x,y) {
+			   new WolframCell(grid, x, y, 182);
+		       });
+});	       
 new Simulation("Wolfram Rule xxx",
 	       "What's the rule? YOU decide!",
 	       function() {
@@ -132,7 +167,7 @@ new Simulation("Wolfram Rule xxx",
 		       alert("invalid rule, defaulting to 34");
 		       rule = 34;
 		   }
-		   grid.resize(50,50);
+		   grid.resize(100,100);
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, rule);
 		       });

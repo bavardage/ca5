@@ -34,6 +34,9 @@ h3 {
 #canvascontainer > div a:hover {
     color: #f90000;
 }
+#canvascontainer > div a.inactive {
+    color: #666;
+}
 #sidebar {
     float: left;
     width: 250px;
@@ -52,3 +55,20 @@ h3 {
     height: 200px;
     overflow: auto;
 }
+
+
+.tooltip {
+    background-color: rgba(102,102,102,0.8)!important;
+    border: 1px solid #efefef!important;
+    color: #efefef!important;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+
+/* Colours used:
+ #4489dd - light blue
+ #f90000 - darkish red
+ #efefef - light grey
+ #666 - dark grey
+*/
