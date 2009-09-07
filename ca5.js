@@ -30,9 +30,9 @@ function setupInterface() {
     setupPlayControls();
     var n = 0;
     simulations.forEach(function(sim) {
-	    $('#simulations ul').append("<li><a id='simulation" + n 
-					+ "' href='#'>" 
-					+ sim.name 
+	    $('#simulations ul').append("<li><a id='simulation" + n
+					+ "' href='#'>"
+					+ sim.name
 					+ "</a></li>");
 	    $('#simulation' + n).click(function() {
 		    loadSim(sim.name);
@@ -144,10 +144,10 @@ new Simulation("Generic Life-Like Rule ??? (Random Start)",
 		   born = [3];
 		   stay = [2,3];
 		   try {
-		       born = eval("[" 
+		       born = eval("["
 				   + prompt("Enter the conditions for cells being born as a comma seperated list ", "1,2,3")
 				   + "]");
-		       stay = eval("[" 
+		       stay = eval("["
 				   + prompt("Enter the conditions for cells staying alive as a comma seperated list ", "1,2,3")
 				   + "]");
 		   } catch (e) {
@@ -166,10 +166,10 @@ new Simulation("Generic Life-Like Rule ??? (Blank)",
 		   born = [3];
 		   stay = [2,3];
 		   try {
-		       born = eval("[" 
+		       born = eval("["
 				   + prompt("Enter the conditions for cells being born as a comma seperated list ", "1,2,3")
 				   + "]");
-		       stay = eval("[" 
+		       stay = eval("["
 				   + prompt("Enter the conditions for cells staying alive as a comma seperated list ", "1,2,3")
 				   + "]");
 		   } catch (e) {
@@ -181,9 +181,9 @@ new Simulation("Generic Life-Like Rule ??? (Blank)",
 					    false);
 		       });
 });
-						    
-				       
-		
+
+
+
 new Simulation("Mouse Fade",
 	       "Wiggle your mouse over the grid!",
 	       function() {
@@ -201,7 +201,7 @@ new Simulation("Colourful Mouse Fade",
 			    new ColourfulMouseFadeCell(grid, x, y);
 			});
 });
-		
+
 
 new Simulation("Wolfram Rule 30",
 	       "The 1d automata specified by Wolfram Code 30",
@@ -226,7 +226,7 @@ new Simulation("Wolfram Rule 182",
 		   grid.forEach(function(x,y) {
 			   new WolframCell(grid, x, y, 182);
 		       });
-});	       
+});
 new Simulation("Wolfram Rule ???",
 	       "What's the rule? YOU decide!",
 	       function() {
@@ -240,3 +240,14 @@ new Simulation("Wolfram Rule ???",
 			   new WolframCell(grid, x, y, rule);
 		       });
 });
+
+new Simulation("Wireworld",
+	       "Good for simulating electronic components."
+	       + "<br/><strong>Left click</strong> toggles conductor, "
+	       + "<strong>Middle click</strong> creates an electron head",
+	       function() {
+		 grid.resize(40,40);
+		 grid.forEach(function(x,y) {
+				new WireworldCell(grid, x, y, 0);
+			      });
+	       });
