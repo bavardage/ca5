@@ -8,7 +8,7 @@ function Grid(canvas, width, height) {
 				 function(ev) {
 				     grid.mouseDown(ev);
 				 }, false);
-    this.canvas.addEventListener('mousemove', 
+    this.canvas.addEventListener('mousemove',
 				 function(ev) {
 				     grid.mouseMove(ev);
 				 }, false);
@@ -47,7 +47,7 @@ Grid.prototype = {
 	return this.cells[x][y];
     },
     togglePlay : function() {
-	
+
 	this.running = !this.running;
 	if(this.running)
 	    setTimeout(this.ticktock, TIMEOUT, this);
@@ -140,11 +140,11 @@ Grid.prototype = {
 	return this.getCells(cell_x, cell_y);
     },
     mouseDown : function(ev) {
-	this.eventToCells(ev).forEach(function(c) {c.mouseDown()});
+      this.eventToCells(ev).forEach(function(c) {c.mouseDown(ev);});
     },
     mouseMove : function(ev) {
-	this.eventToCells(ev).forEach(function(c) {c.mouseOver()});
-    },
+      this.eventToCells(ev).forEach(function(c) {c.mouseOver(ev);});
+    }
 }
 // end Grid
 /////////////////////
